@@ -21,6 +21,7 @@ export const tokenize = (input: string) => {
   while (index < input.length) {
     const location = locationForIndex(input, index);
     const matches = matchers.map(m => m(input, index)).filter(f => f);
+
     if (matches.length > 0) {
       const match = matches[0];
       if (match.type !== 'whitespace') {

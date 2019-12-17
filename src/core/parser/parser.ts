@@ -26,7 +26,7 @@ export const parse = (tokens: Token[]) => {
     };
   };
 
-  const parseNumberExpression: ParserStep<NumberLiteralNode> = () => {
+  const parseNumberLiteral: ParserStep<NumberLiteralNode> = () => {
     const node: NumberLiteralNode = {
       type: 'numberLiteral',
       value: Number(currentToken.value),
@@ -38,7 +38,7 @@ export const parse = (tokens: Token[]) => {
   const parseExpression: ParserStep<ExpressionNode> = () => {
     switch (currentToken.type) {
       case 'number':
-        return parseNumberExpression();
+        return parseNumberLiteral();
       default:
         eatToken();
         throw new ParserError(`Unexpected token type ${currentToken.type}`, currentToken);

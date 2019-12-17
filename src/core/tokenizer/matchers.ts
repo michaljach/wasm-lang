@@ -13,6 +13,6 @@ const regexMatcher = (regex: string, type: TokenType) => (input: string, index: 
 
 export const matchers = [
   regexMatcher('^[.0-9]+', 'number'),
-  regexMatcher(`^(${keywords.join('|')})`, 'keyword'),
+  regexMatcher(`^${keywords.join('|')}`, 'keyword'),
   regexMatcher('^\\s+', 'whitespace'),
 ];
