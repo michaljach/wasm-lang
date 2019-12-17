@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "build:web": "browserify src/index.ts -p [ tsify ] > dist/bundle.js"
   },
   "dependencies": {
     "@types/node": "^12.12.18",

@@ -83,7 +83,7 @@ const codeFromAst = (ast: Program) => {
   return code;
 };
 
-export const emitter: Emitter = (ast: Program) => {
+export const emitter = (ast: Program): Uint8Array => {
   // Function types are vectors of parameters and return types. Currently
   // WebAssembly only supports single return values
   const voidVoidType = [functionType, emptyArray, emptyArray];

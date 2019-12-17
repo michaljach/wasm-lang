@@ -1,7 +1,3 @@
-interface Parser {
-  (tokens: Token[]): Program;
-}
-
 interface ProgramNode {
   type: string;
 }
@@ -34,8 +30,4 @@ interface StringLiteralNode extends ProgramNode {
 interface PrintStatementNode extends ProgramNode {
   type: 'printStatement';
   expression: ExpressionNode;
-}
-
-interface ParserStep<T extends ProgramNode> {
-  (): T;
 }

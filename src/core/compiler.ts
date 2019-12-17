@@ -1,20 +1,11 @@
 import { emitter } from './emitter';
-import { tokenize } from './tokenizer';
-import { parse } from './parser';
+import { tokenize } from './tokenizer/tokenizer';
+import { parse } from './parser/parser';
 
-export const compile: Compiler = src => {
+export const runtime = async (src: string, env: any): Promise<any> => {
   const tokens = tokenize(src);
   const ast = parse(tokens);
   const wasm = emitter(ast);
-  return wasm;
-};
-
-export const runtime: Runtime = async (src, env: any) => {
-  const wasm = compile(src);
-  const result: any = await WebAssembly.instantiate(wasm, {
-    env,
-  });
-  return () => {
-    result.instance.exports.run();
-  };
+  const result = await WebAssembly.instantiate(wasm, { env });
+  return result.instance.exports.run;
 };
