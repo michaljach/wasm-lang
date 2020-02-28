@@ -1,5 +1,6 @@
 import { Token } from '../tokenizer/tokenizer';
 import { ParserError } from './error';
+import { SourceNode } from 'source-map';
 
 interface ParserStep<T extends ProgramNode> {
   (): T;
@@ -7,7 +8,7 @@ interface ParserStep<T extends ProgramNode> {
 
 export const parse = (tokens: Token[]) => {
   const tokenIterator = tokens[Symbol.iterator]();
-  let currentToken = tokenIterator.next().value;
+  let currentToken: Token = tokenIterator.next().value;
   let nextToken = tokenIterator.next().value;
 
   const eatToken = (value?: string) => {
@@ -31,6 +32,7 @@ export const parse = (tokens: Token[]) => {
       type: 'numberLiteral',
       value: Number(currentToken.value),
     };
+
     eatToken();
     return node;
   };

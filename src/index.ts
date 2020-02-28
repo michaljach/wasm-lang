@@ -1,5 +1,6 @@
-import { runtime } from './core/compiler';
+const fs = require('fs');
+import compile from './core/compiler';
 
-runtime(`print 56`, {
-  print: console.log,
-}).then(s => s());
+const source = fs.readFileSync(process.argv[2], 'utf8');
+const bytes = compile(source, { print: console.log });
+console.log(bytes);
