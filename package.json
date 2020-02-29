@@ -4,19 +4,15 @@
   },
   "dependencies": {
     "@types/node": "^12.12.18",
-    "fetch": "^1.1.0",
-    "global": "^4.4.0",
-    "node-fetch": "^2.6.0",
-    "serve": "^11.2.0",
-    "source-map": "^0.7.3"
+    "@types/yargs": "^15.0.4",
+    "binaryen": "^91.0.0",
+    "yargs": "^15.1.0"
   },
   "name": "wasm",
   "version": "1.0.0",
   "main": "bin/index",
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^16.5.0",
-    "tsify": "^4.0.1",
     "typescript": "^3.8.0-dev.20191216"
   }
 }
