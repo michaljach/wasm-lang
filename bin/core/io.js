@@ -14,21 +14,6 @@ exports.argv = yargs.options({
     o: { type: 'string', demandOption: true, alias: 'output', nargs: 1 },
     s: { type: 'boolean', alias: 'sourceMaps' },
 }).argv;
-// export const { argv }: { argv: Args } = yargs
-//   .usage('Usage: $0 <command> [options]')
-//   .alias('s', 'sourceMaps')
-//   .alias('o', 'output')
-//   .nargs('sourceMaps', 0)
-//   .nargs('output', 1)
-//   .describe('sourceMaps', 'generates wasm sourceMap files for debugging')
-//   .describe('output', 'path for output file')
-//   .alias('f', 'file')
-//   .nargs('file', 1)
-//   .describe('file', 'path to source file to be compiled')
-//   .demandOption(['f', 'o'])
-//   .help('h')
-//   .alias('h', 'help')
-//   .epilog('copyright 2020');
 exports.save = function (fileName, buffer) {
     fs.writeFileSync(fileName, buffer);
 };
