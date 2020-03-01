@@ -1,3 +1,12 @@
+## [0.3.7](https://github.com/michaljach/wasm-lang/compare/v0.3.6...v0.3.7) (2020-03-01)
+
+
+### Bug Fixes
+
+* 🐛 remove bin compiled folder ([0a78b32](https://github.com/michaljach/wasm-lang/commit/0a78b320ee1ee79ba2ba4d05887a2ffd4d93a2dd))
+
+
+
 ## [0.3.6](https://github.com/michaljach/wasm-lang/compare/v0.3.5...v0.3.6) (2020-03-01)
 
 
@@ -27,10 +36,6 @@
 ### Bug Fixes
 
 * 🐛 fixed publishing registry ([a91953a](https://github.com/michaljach/wasm-lang/commit/a91953a07c677e444ae8467f495b091e0ef8773c))
-
-
-
-## [0.3.2](https://github.com/michaljach/wasm-lang/compare/v0.3.1...v0.3.2) (2020-03-01)
 
 
 
