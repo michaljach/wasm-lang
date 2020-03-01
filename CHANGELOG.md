@@ -1,3 +1,7 @@
+## [0.3.4](https://github.com/michaljach/wasm-lang/compare/v0.3.3...v0.3.4) (2020-03-01)
+
+
+
 ## [0.3.3](https://github.com/michaljach/wasm-lang/compare/v0.3.2...v0.3.3) (2020-03-01)
 
 
