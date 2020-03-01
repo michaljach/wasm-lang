@@ -1,3 +1,12 @@
+## [0.3.6](https://github.com/michaljach/wasm-lang/compare/v0.3.5...v0.3.6) (2020-03-01)
+
+
+### Bug Fixes
+
+* 🐛 fix auto publishing ([13b56cb](https://github.com/michaljach/wasm-lang/commit/13b56cb3d0c8eae6a93257de8119ac5b2a9553fc))
+
+
+
 ## [0.3.5](https://github.com/michaljach/wasm-lang/compare/v0.3.4...v0.3.5) (2020-03-01)
 
 
@@ -22,10 +31,6 @@
 
 
 ## [0.3.2](https://github.com/michaljach/wasm-lang/compare/v0.3.1...v0.3.2) (2020-03-01)
-
-
-
-## [0.3.1](https://github.com/michaljach/wasm-lang/compare/v0.3.0...v0.3.1) (2020-03-01)
 
 
 
