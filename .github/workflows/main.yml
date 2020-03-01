@@ -22,6 +22,6 @@ jobs:
           output-file: 'CHANGELOG.md'
           changelog-release-count: 5
       - uses: borales/actions-yarn@v2.1.0
-        cmd: publish
-        env:
+        with:
+          cmd: publish
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
