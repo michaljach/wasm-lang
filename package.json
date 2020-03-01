@@ -1,18 +1,43 @@
 {
-  "scripts": {
-    "build": "tsc"
+  "name": "wasm",
+  "version": "0.1.0",
+  "main": "bin/index.js",
+  "bin": {
+    "wasm": "./bin/index.js"
   },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src --ext .js,.ts",
+    "commit": "npx git-cz"
+  },
+  "files": [
+    "bin"
+  ],
+  "license": "MIT",
   "dependencies": {
-    "@types/node": "^12.12.18",
-    "@types/yargs": "^15.0.4",
     "binaryen": "^91.0.0",
+    "chalk": "^3.0.0",
     "yargs": "^15.1.0"
   },
-  "name": "wasm",
-  "version": "1.0.0",
-  "main": "bin/index",
-  "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@types/node": "^12.12.18",
+    "@types/yargs": "^15.0.4",
+    "@typescript-eslint/eslint-plugin": "^2.21.0",
+    "@typescript-eslint/parser": "^2.21.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "prettier": "^1.19.1",
     "typescript": "^3.8.0-dev.20191216"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }

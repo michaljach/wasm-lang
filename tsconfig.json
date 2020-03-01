@@ -2,10 +2,14 @@
   "compilerOptions": {
     "outDir": "bin",
     "allowJs": true,
-    "lib": ["es2017", "dom"],
-    "target": "esnext",
+    "lib": ["es6", "es2015", "dom"],
+    "target": "es5",
     "noImplicitAny": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "types": ["node"]
   },
-  "include": ["./src/**/*", "./__tests__/**/*", "./web/**/*"]
+  "include": ["./src"]
 }
