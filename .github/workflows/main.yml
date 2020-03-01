@@ -21,3 +21,7 @@ jobs:
           git-message: 'chore(release): {version}'
           output-file: 'CHANGELOG.md'
           changelog-release-count: 5
+      - uses: primer/publish@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
