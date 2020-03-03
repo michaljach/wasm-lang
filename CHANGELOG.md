@@ -1,3 +1,12 @@
+## [0.3.9](https://github.com/michaljach/wasm-lang/compare/v0.3.8...v0.3.9) (2020-03-03)
+
+
+### Bug Fixes
+
+* 🐛 fixed commitlint CI order ([5c9fa76](https://github.com/michaljach/wasm-lang/commit/5c9fa762167582a10e398ed098d2c354ed2e79ea))
+
+
+
 ## [0.3.8](https://github.com/michaljach/wasm-lang/compare/v0.3.7...v0.3.8) (2020-03-01)
 
 
@@ -27,10 +36,6 @@
 
 * 🐛 check auto publish ([576726c](https://github.com/michaljach/wasm-lang/commit/576726ca862cfa515478c3698c96441cbe2c40ce))
 * 🐛 try fix CI ([c2bb173](https://github.com/michaljach/wasm-lang/commit/c2bb173ba35055fc77a916296d9decff4c4ce9b0))
-
-
-
-## [0.3.4](https://github.com/michaljach/wasm-lang/compare/v0.3.3...v0.3.4) (2020-03-01)
 
 
 
