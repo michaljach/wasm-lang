@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as yargs from 'yargs';
+import fs from 'fs';
+import yargs from 'yargs';
 
 export interface Args {
   [x: string]: unknown;
