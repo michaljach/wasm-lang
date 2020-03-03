@@ -11,7 +11,9 @@ export interface Binary {
 export const parse = (argv: Args): Binary => {
   // START OF TEMPORARY WASM GEN CODE
   const wasmModule = new binaryen.Module();
-  const fileIndex = wasmModule.addDebugInfoFileName(path.basename(`${argv.f}`));
+  const basenameInput = path.basename(`${argv.f}`);
+  const basenameOutput = path.basename(`${argv.o}`);
+  const fileIndex = wasmModule.addDebugInfoFileName(basenameInput);
   const left = wasmModule.local.get(0, binaryen.i32);
   const right = wasmModule.local.get(1, binaryen.i32);
   const add = wasmModule.i32.add(left, right);
@@ -24,7 +26,7 @@ export const parse = (argv: Args): Binary => {
 
   wasmModule.optimize();
 
-  const sourceMapFileUrl = argv.s ? 'http://localhost:5000/index.wasm.map' : null;
+  const sourceMapFileUrl = argv.s ? `http://localhost:5000/${basenameOutput}.map` : null;
 
   if (!wasmModule.validate()) {
     log(MessageCode.NOT_VALID);
