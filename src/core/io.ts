@@ -12,6 +12,10 @@ export const { argv }: { argv: Args } = yargs.options({
   s: { type: 'boolean', alias: 'sourceMaps', description: 'Generate sourceMaps for debugging' },
 });
 
+export const read = (filename: string): string => {
+  return fs.readFileSync(filename).toString();
+};
+
 export const save = (fileName: string, buffer: string | Uint8Array): void => {
   fs.writeFileSync(fileName, buffer);
 };
