@@ -2,12 +2,15 @@ import binaryen, { Module } from 'binaryen';
 
 export enum Type {
   VOID = 'void',
+  INT = 'int',
 }
+
+const matchers = [/function (.*)\(\): (.*) {\n+(.*|^})*\n+}/g];
 
 const pickType = (type: Type): number => {
   switch (type) {
-    case Type.VOID:
-      return binaryen.none;
+    case Type.INT:
+      return binaryen.i64;
     default:
       return binaryen.none;
   }
@@ -28,12 +31,13 @@ export const parseFunctionDeclaration = (
   module.addFunctionExport(name, name);
 };
 
-export const tokenize = (module: Module, fileIndex: number, source: string): any => {
-  const functionDeclaration = source.match(/function (.*)\(\): (.*) {((.|\n)*)}/);
-  if (functionDeclaration) {
-    const [full, name, returnType, body] = functionDeclaration;
-    parseFunctionDeclaration(module, fileIndex, full, name, returnType as Type, body);
-  } else {
-    throw Error('Syntax error near function declaration');
-  }
+export const tokenize = (module: Module, fileIndex: number, source: string): void => {
+  matchers.forEach(matcher => {
+    const matches = [...source.matchAll(matcher)];
+
+    matches.forEach(match => {
+      const [full, name, returnType, body] = match;
+      parseFunctionDeclaration(module, fileIndex, full, name, returnType as Type, body);
+    });
+  });
 };

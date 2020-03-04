@@ -2,14 +2,15 @@
   "compilerOptions": {
     "outDir": "bin",
     "allowJs": true,
-    "lib": ["es6", "es2015", "dom"],
+    "lib": ["es6", "es2015", "dom", "es2020.string"],
     "target": "es5",
     "noImplicitAny": true,
     "module": "commonjs",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
-    "types": ["node"]
+    "types": ["node"],
+    "downlevelIteration": true
   },
   "include": ["./src"]
 }
