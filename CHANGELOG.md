@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/michaljach/wasm-lang/compare/v0.3.11...v0.4.0) (2020-03-04)
+
+
+### Features
+
+* 🎸 sourcecode parsing and tokenizing ([8f40c41](https://github.com/michaljach/wasm-lang/commit/8f40c41282c8ae0e8984fb5309bd60f0e402f15b))
+
+
+
 ## [0.3.11](https://github.com/michaljach/wasm-lang/compare/v0.3.10...v0.3.11) (2020-03-03)
 
 
@@ -21,15 +30,6 @@
 
 
 ## [0.3.8](https://github.com/michaljach/wasm-lang/compare/v0.3.7...v0.3.8) (2020-03-01)
-
-
-
-## [0.3.7](https://github.com/michaljach/wasm-lang/compare/v0.3.6...v0.3.7) (2020-03-01)
-
-
-### Bug Fixes
-
-* 🐛 remove bin compiled folder ([0a78b32](https://github.com/michaljach/wasm-lang/commit/0a78b320ee1ee79ba2ba4d05887a2ffd4d93a2dd))
 
 
 
