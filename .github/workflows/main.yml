@@ -1,30 +1,28 @@
-name: Build
+name: Pipeline
 on: [push]
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: borales/actions-yarn@v2.1.0
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
         with:
-          cmd: install
-      - uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: commitlint
-      - uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: lint
-      - uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: build
+          node-version: '12.x'
+      - name: Install dependencies
+        run: yarn
+      - name: Lint commit messages
+        run: yarn commitlint
+      - name: Lint code
+        run: yarn lint
+      - name: Build
+        run: yarn build
       - uses: TriPSs/conventional-changelog-action@v1.2.0
         with:
           github-token: ${{ secrets.github_token }}
           git-message: 'chore(release): {version}'
           output-file: 'CHANGELOG.md'
           changelog-release-count: 5
-      - uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: publish --non-interactive
-          auth-token: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Publish
+        run: yarn publish --non-interactive
