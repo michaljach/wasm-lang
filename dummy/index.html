@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      WebAssembly.instantiateStreaming(fetch('test.wasm'), {}).then(results => {
+        console.log(results.instance.exports.main());
+      });
+    </script>
+  </head>
+
+  <body></body>
+</html>

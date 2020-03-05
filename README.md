@@ -32,15 +32,15 @@ Example:
 
 ```
 function [name]([param_name]: <type>, ...): <type> {
-
+  return [expression]
 }
 ```
 
 Example:
 
 ```
-function add(x: int, y: int): int {
-
+function show(): int {
+  return 12
 }
 ```
 
