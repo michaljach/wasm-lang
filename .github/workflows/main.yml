@@ -9,7 +9,8 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: 12
+          always-auth: true
       - name: Install dependencies
         run: yarn
       # - name: Lint commit messages
