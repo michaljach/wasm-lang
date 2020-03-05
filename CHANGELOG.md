@@ -1,3 +1,7 @@
+## [0.5.2](https://github.com/michaljach/wasm-lang/compare/v0.5.1...v0.5.2) (2020-03-05)
+
+
+
 ## [0.5.1](https://github.com/michaljach/wasm-lang/compare/v0.5.0...v0.5.1) (2020-03-05)
 
 
@@ -31,10 +35,6 @@
 ### Bug Fixes
 
 * 🐛 fixed dynamic basenames ([4ac27b5](https://github.com/michaljach/wasm-lang/commit/4ac27b5069cd5930eb634f5273a3ffa5dfaddbda))
-
-
-
-## [0.3.10](https://github.com/michaljach/wasm-lang/compare/v0.3.9...v0.3.10) (2020-03-03)
 
 
 
