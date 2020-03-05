@@ -16,7 +16,7 @@ jobs:
           github-token: ${{ secrets.github_token }}
           git-message: 'chore(release): {version}'
           output-file: 'CHANGELOG.md'
-          changelog-release-count: 15
+          changelog-release-count: 5
       - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
       - run: yarn publish
         env:
