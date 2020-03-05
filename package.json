@@ -9,7 +9,7 @@
     "build": "tsc",
     "debug": "node --inspect-brk bin/index.js",
     "lint": "eslint src --ext .js,.ts",
-    "commit": "npx git-cz",
+    "commit": "git-cz",
     "commitlint": "commitlint --from=HEAD~1"
   },
   "files": [
@@ -33,6 +33,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "git-cz": "^4.3.1",
     "husky": "^4.2.3",
     "prettier": "^1.19.1",
     "typescript": "^3.8.0-dev.20191216"
