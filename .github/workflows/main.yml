@@ -26,3 +26,5 @@ jobs:
           changelog-release-count: 5
       - name: Publish
         run: yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
