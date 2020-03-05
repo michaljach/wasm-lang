@@ -11,17 +11,38 @@ Compiles `[langname]` sources to WebAssembly `wasm` binary module file. It can d
 ### API
 
 ```
+
 Options:
 
---help  Show help  [boolean]
---version Show version number  [boolean]
--f, --file  Path to source file to be compiled [string] [required]
--o, --output  Path to result file to be saved  [string] [required]
--s, --sourceMaps  Generate sourceMaps for debugging  [boolean]
+--help Show help [boolean]
+--version Show version number [boolean]
+-f, --file Path to source file to be compiled [string] [required]
+-o, --output Path to result file to be saved [string] [required]
+-s, --sourceMaps Generate sourceMaps for debugging [boolean]
+
 ```
 
 Example:
+
 `wasm-lang -f dummy/test.x -o dummy/test.wasm -s`
+
+### Language Documentation
+
+- #### Function declaration
+
+```
+function [name]([param_name]: <type>, ...): <type> {
+
+}
+```
+
+Example:
+
+```
+function add(x: int, y: int): int {
+
+}
+```
 
 ### Changelog
 
