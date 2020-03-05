@@ -1,4 +1,4 @@
-![Build](https://github.com/michaljach/wasm-lang/workflows/Build/badge.svg) ![npm version](https://badge.fury.io/js/wasm-lang.svg) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/michaljach/wasm-lang/blob/master/LICENSE)
+![Build](https://github.com/michaljach/wasm-lang/workflows/Build/badge.svg) [![npm version](https://img.shields.io/npm/v/wasm-lang.svg?style=flat)](https://www.npmjs.com/package/wasm-lang) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/michaljach/wasm-lang/blob/master/LICENSE)
 
 # wasm-lang [needs name] compiler
 
