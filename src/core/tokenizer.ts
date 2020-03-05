@@ -5,12 +5,12 @@ export enum Type {
   INT = 'int',
 }
 
-const matchers = [/function (.*)\(\): (.*) {\n+(.*|^})*\n+}/g];
+const functionDeclarationMatcher = /function (.*)\(\): (.*) {/g;
 
 const pickType = (type: Type): number => {
   switch (type) {
     case Type.INT:
-      return binaryen.i64;
+      return binaryen.i32;
     default:
       return binaryen.none;
   }
@@ -18,26 +18,25 @@ const pickType = (type: Type): number => {
 
 export const parseFunctionDeclaration = (
   module: Module,
+  lineNumber: number,
   fileIndex: number,
-  full: string,
   name: string,
   returnType: Type,
   body: string,
 ): void => {
-  const ret = module.return();
+  const returnFunction = module.return();
   const params = binaryen.createType([]);
-  const func = module.addFunction(name, params, pickType(returnType), [], ret);
-  module.setDebugLocation(func, ret, fileIndex, 1, 1);
+  const func = module.addFunction(name, params, pickType(returnType), [], returnFunction);
+  module.setDebugLocation(func, returnFunction, fileIndex, lineNumber + 1, 1);
   module.addFunctionExport(name, name);
 };
 
 export const tokenize = (module: Module, fileIndex: number, source: string): void => {
-  matchers.forEach(matcher => {
-    const matches = [...source.matchAll(matcher)];
-
-    matches.forEach(match => {
-      const [full, name, returnType, body] = match;
-      parseFunctionDeclaration(module, fileIndex, full, name, returnType as Type, body);
-    });
+  source.split('\n').forEach((line, lineNumber) => {
+    const matches = [...line.matchAll(functionDeclarationMatcher)];
+    if (matches.length) {
+      const [, name, returnType, body] = matches[0];
+      parseFunctionDeclaration(module, lineNumber, fileIndex, name, returnType as Type, body);
+    }
   });
 };
