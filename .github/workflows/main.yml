@@ -10,7 +10,6 @@ jobs:
         with:
           node-version: 12
       - run: yarn install
-      - run: yarn commitlint
       - run: yarn build
       - uses: TriPSs/conventional-changelog-action@v1.2.0
         with:
