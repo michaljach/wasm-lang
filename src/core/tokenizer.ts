@@ -46,9 +46,10 @@ const parseReturnStatement = (
     }
     const { body } = returnExpression.expression;
     switch (body.type) {
-      case 'numberLiteral':
+      case 'numberLiteral': {
         const value = wasmModule.i32.const(body.value);
         return { moduleReturn: wasmModule.return(value), value };
+      }
       default:
         return { moduleReturn: wasmModule.return() };
     }
