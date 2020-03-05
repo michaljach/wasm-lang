@@ -1,3 +1,7 @@
+## [0.6.1](https://github.com/michaljach/wasm-lang/compare/v0.6.0...v0.6.1) (2020-03-05)
+
+
+
 # [0.6.0](https://github.com/michaljach/wasm-lang/compare/v0.5.3...v0.6.0) (2020-03-05)
 
 
@@ -21,15 +25,6 @@
 ### Bug Fixes
 
 * 🐛 parsing with line numbers ([4c87414](https://github.com/michaljach/wasm-lang/commit/4c874148137352d0bf23fa8fd5c9bdde1c0c5e5b))
-
-
-
-# [0.5.0](https://github.com/michaljach/wasm-lang/compare/v0.4.0...v0.5.0) (2020-03-04)
-
-
-### Features
-
-* 🎸 function declaration parsing ([5d8846c](https://github.com/michaljach/wasm-lang/commit/5d8846c6b03daf6b21f318a9ad88b2f29b2d02ae))
 
 
 
