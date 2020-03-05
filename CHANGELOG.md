@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/michaljach/wasm-lang/compare/v0.4.0...v0.5.0) (2020-03-04)
+
+
+### Features
+
+* 🎸 function declaration parsing ([5d8846c](https://github.com/michaljach/wasm-lang/commit/5d8846c6b03daf6b21f318a9ad88b2f29b2d02ae))
+
+
+
 # [0.4.0](https://github.com/michaljach/wasm-lang/compare/v0.3.11...v0.4.0) (2020-03-04)
 
 
@@ -26,10 +35,6 @@
 ### Bug Fixes
 
 * 🐛 fixed commitlint CI order ([5c9fa76](https://github.com/michaljach/wasm-lang/commit/5c9fa762167582a10e398ed098d2c354ed2e79ea))
-
-
-
-## [0.3.8](https://github.com/michaljach/wasm-lang/compare/v0.3.7...v0.3.8) (2020-03-01)
 
 
 
