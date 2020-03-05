@@ -1,3 +1,12 @@
+## [0.5.1](https://github.com/michaljach/wasm-lang/compare/v0.5.0...v0.5.1) (2020-03-05)
+
+
+### Bug Fixes
+
+* 🐛 parsing with line numbers ([4c87414](https://github.com/michaljach/wasm-lang/commit/4c874148137352d0bf23fa8fd5c9bdde1c0c5e5b))
+
+
+
 # [0.5.0](https://github.com/michaljach/wasm-lang/compare/v0.4.0...v0.5.0) (2020-03-04)
 
 
@@ -26,15 +35,6 @@
 
 
 ## [0.3.10](https://github.com/michaljach/wasm-lang/compare/v0.3.9...v0.3.10) (2020-03-03)
-
-
-
-## [0.3.9](https://github.com/michaljach/wasm-lang/compare/v0.3.8...v0.3.9) (2020-03-03)
-
-
-### Bug Fixes
-
-* 🐛 fixed commitlint CI order ([5c9fa76](https://github.com/michaljach/wasm-lang/commit/5c9fa762167582a10e398ed098d2c354ed2e79ea))
 
 
 
