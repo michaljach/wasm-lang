@@ -1,3 +1,12 @@
+# [0.6.0](https://github.com/michaljach/wasm-lang/compare/v0.5.3...v0.6.0) (2020-03-05)
+
+
+### Features
+
+* 🎸 abstract syntax tree, return statement, function body ([9bef555](https://github.com/michaljach/wasm-lang/commit/9bef5550c61c5cf7eb562b9b6db1c784d7593fb1))
+
+
+
 ## [0.5.3](https://github.com/michaljach/wasm-lang/compare/v0.5.2...v0.5.3) (2020-03-05)
 
 
@@ -21,15 +30,6 @@
 ### Features
 
 * 🎸 function declaration parsing ([5d8846c](https://github.com/michaljach/wasm-lang/commit/5d8846c6b03daf6b21f318a9ad88b2f29b2d02ae))
-
-
-
-# [0.4.0](https://github.com/michaljach/wasm-lang/compare/v0.3.11...v0.4.0) (2020-03-04)
-
-
-### Features
-
-* 🎸 sourcecode parsing and tokenizing ([8f40c41](https://github.com/michaljach/wasm-lang/commit/8f40c41282c8ae0e8984fb5309bd60f0e402f15b))
 
 
 
