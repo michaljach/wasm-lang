@@ -6,28 +6,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: 12
-          always-auth: true
-      - name: Install dependencies
-        run: yarn
-      # - name: Lint commit messages
-      #   run: yarn commitlint
-      - name: Lint code
-        run: yarn lint
-      - name: Build
-        run: yarn build
-      - uses: TriPSs/conventional-changelog-action@v1.2.0
-        with:
-          github-token: ${{ secrets.github_token }}
-          git-message: 'chore(release): {version}'
-          output-file: 'CHANGELOG.md'
-          changelog-release-count: 15
-      - name Setup
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
-      - name: Publish
-        run: yarn publish --non-interactive
+      - run: yarn install
+      - run: yarn build
+      - run: yarn publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+    # steps:
+    #   - uses: actions/checkout@v2
+    #   - name: Use Node.js
+    #     uses: actions/setup-node@v1
+    #     with:
+    #       node-version: 12
+    #       always-auth: true
+    #   - name: Install dependencies
+    #     run: yarn
+    #   # - name: Lint commit messages
+    #   #   run: yarn commitlint
+    #   - name: Lint code
+    #     run: yarn lint
+    #   - name: Build
+    #     run: yarn build
+    #   - uses: TriPSs/conventional-changelog-action@v1.2.0
+    #     with:
+    #       github-token: ${{ secrets.github_token }}
+    #       git-message: 'chore(release): {version}'
+    #       output-file: 'CHANGELOG.md'
+    #       changelog-release-count: 15
+    #   - name Setup
+    #     run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
+    #   - name: Publish
+    #     run: yarn publish --non-interactive
+    #     env:
+    #       NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
