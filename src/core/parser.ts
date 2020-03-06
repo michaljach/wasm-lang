@@ -2,7 +2,7 @@ import binaryen from 'binaryen';
 import path from 'path';
 import { log, MessageCode } from '../utils/logger';
 import { Args, read } from './io';
-import { tokenize } from './tokenizer';
+import tokenize from './tokenizer';
 
 export interface Binary {
   binary: Uint8Array;

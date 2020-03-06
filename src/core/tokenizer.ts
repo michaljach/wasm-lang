@@ -1,23 +1,7 @@
 import binaryen, { Module } from 'binaryen';
+import { FunctionDeclaration, Type, ReturnExpression } from './types';
 
-export enum Type {
-  VOID = 'void',
-  INT = 'int',
-}
-
-interface FunctionDeclaration {
-  type: 'functionDeclaration';
-  return: {
-    returnType: Type;
-    expression: any;
-  };
-  fileIndex: number;
-  name: string;
-  lineNumber: number;
-  body: any[];
-}
-
-const ast: any = [];
+const ast: FunctionDeclaration[] = [];
 const blocks: string[] = [];
 
 const functionDeclarationMatcher = /function (.*)\(\): (.*) {/g;
@@ -36,18 +20,16 @@ const pickType = (type: Type): number => {
 
 const parseReturnStatement = (
   wasmModule: Module,
-  fileIndex: number,
-  lineNumber: number,
-  returnExpression: any,
+  returnExpression: ReturnExpression,
 ): { moduleReturn: number; value?: number } => {
   if (returnExpression.returnType !== Type.VOID) {
-    if (!returnExpression.expression) {
+    if (!returnExpression.body) {
       throw Error(`Function with type ${returnExpression.returnType} expects a return.`);
     }
-    const { body } = returnExpression.expression;
-    switch (body.type) {
+    const { type, body } = returnExpression.body;
+    switch (type) {
       case 'numberLiteral': {
-        const value = wasmModule.i32.const(body.value);
+        const value = wasmModule.i32.const(body);
         return { moduleReturn: wasmModule.return(value), value };
       }
       default:
@@ -59,16 +41,23 @@ const parseReturnStatement = (
 };
 
 const parseFunctionDeclaration = (block: FunctionDeclaration, wasmModule: Module): void => {
-  const { moduleReturn, value } = parseReturnStatement(wasmModule, block.fileIndex, block.lineNumber, block.return);
+  const { moduleReturn, value } = parseReturnStatement(wasmModule, block.returnExpression);
   const params = binaryen.createType([]);
-  const func = wasmModule.addFunction(block.name, params, pickType(block.return.returnType), [], moduleReturn);
+  const func = wasmModule.addFunction(
+    block.name,
+    params,
+    pickType(block.returnExpression.returnType),
+    [],
+    moduleReturn,
+  );
+
   if (value) {
-    wasmModule.setDebugLocation(func, value, block.fileIndex, block.return.expression.lineNumber, 1);
+    wasmModule.setDebugLocation(func, value, block.fileIndex, block.returnExpression.lineNumber, 1);
   }
   wasmModule.addFunctionExport(block.name, block.name);
 };
 
-const parseAbstractSyntaxTree = (wasmModule: Module): any => {
+const parseAbstractSyntaxTree = (wasmModule: Module): void => {
   ast.forEach((block: FunctionDeclaration) => {
     switch (block.type) {
       case 'functionDeclaration':
@@ -81,7 +70,7 @@ const parseAbstractSyntaxTree = (wasmModule: Module): any => {
   });
 };
 
-export const tokenize = (module: Module, fileIndex: number, source: string): void => {
+const tokenize = (module: Module, fileIndex: number, source: string): void => {
   source.split('\n').forEach((line, lineNumber) => {
     const functionDeclarationMatch = [...line.matchAll(functionDeclarationMatcher)];
     const returnExpressionMatch = [...line.matchAll(returnExpressionMatcher)];
@@ -93,8 +82,14 @@ export const tokenize = (module: Module, fileIndex: number, source: string): voi
         type: 'functionDeclaration',
         name,
         fileIndex,
-        return: {
-          returnType,
+        returnExpression: {
+          returnType: returnType as Type,
+          lineNumber: 0,
+          body: {
+            lineNumber: 0,
+            body: 0,
+            type: '',
+          },
         },
         lineNumber: lineNumber + 1,
         body: [],
@@ -102,11 +97,12 @@ export const tokenize = (module: Module, fileIndex: number, source: string): voi
     } else if (returnExpressionMatch.length) {
       const match = returnExpressionMatch[0][1].match(numberLiteralMatcher);
       if (match) {
-        if ([...ast].pop().type === 'functionDeclaration') {
-          [...ast].pop().return.expression = {
-            type: 'returnExpression',
+        const latestBlock = [...ast].pop();
+        if (latestBlock && latestBlock.type === 'functionDeclaration') {
+          latestBlock.returnExpression = {
+            returnType: latestBlock.returnExpression.returnType,
             lineNumber: lineNumber + 1,
-            body: { type: 'numberLiteral', value: Number(match[0]) },
+            body: { type: 'numberLiteral', body: Number(match[0]), lineNumber: lineNumber + 1 },
           };
         }
       }
@@ -120,3 +116,5 @@ export const tokenize = (module: Module, fileIndex: number, source: string): voi
   });
   parseAbstractSyntaxTree(module);
 };
+
+export default tokenize;
