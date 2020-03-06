@@ -1,3 +1,9 @@
+export interface Binary {
+  binary: Uint8Array;
+  sourceMap: string | null;
+  textFormat: string;
+}
+
 export enum Type {
   VOID = 'void',
   INT = 'int',

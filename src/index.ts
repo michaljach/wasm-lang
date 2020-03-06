@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import { argv, save } from './core/io';
-import { parse } from './core/parser';
+import emit from './core/emitter';
 import { log, MessageCode } from './utils/logger';
 
-const binary = parse(argv);
+const binary = emit(argv);
 
 if (binary.sourceMap) {
   save(`${argv.o}.map`, binary.sourceMap);
