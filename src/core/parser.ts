@@ -7,6 +7,7 @@ import { tokenize } from './tokenizer';
 export interface Binary {
   binary: Uint8Array;
   sourceMap: string | null;
+  textFormat: string;
 }
 
 export const parse = (argv: Args): Binary => {
@@ -24,5 +25,5 @@ export const parse = (argv: Args): Binary => {
 
   wasmModule.optimize();
 
-  return wasmModule.emitBinary(sourceMapFileUrl);
+  return { textFormat: wasmModule.emitText(), ...wasmModule.emitBinary(sourceMapFileUrl) };
 };

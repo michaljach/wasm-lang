@@ -1,0 +1,8 @@
+(module
+ (type $none_=>_i32 (func (result i32)))
+ (export "main" (func $main))
+ (func $main (; 0 ;) (; has Stack IR ;) (result i32)
+  ;;@ test.x:2:1
+  (i32.const 12)
+ )
+)
