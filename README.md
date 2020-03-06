@@ -19,6 +19,7 @@ Options:
 -f, --file Path to source file to be compiled [string] [required]
 -o, --output Path to result file to be saved [string] [required]
 -s, --sourceMaps Generate sourceMaps for debugging [boolean]
+-t, --textFormat  Generate WebAssembly Text Format (wat) file [string]
 
 ```
 
