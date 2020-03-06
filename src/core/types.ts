@@ -16,7 +16,7 @@ export interface Expression {
 }
 
 export interface ReturnExpression {
-  returnType: Type;
+  type: 'returnExpression';
   lineNumber: number;
   body: Expression;
 }
@@ -24,6 +24,7 @@ export interface ReturnExpression {
 export interface FunctionDeclaration {
   type: 'functionDeclaration';
   returnExpression: ReturnExpression;
+  returnType: Type;
   fileIndex: number;
   name: string;
   lineNumber: number;

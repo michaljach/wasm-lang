@@ -1,5 +1,5 @@
 import binaryen, { Module } from 'binaryen';
-import { FunctionDeclaration, Type, ReturnExpression } from './types';
+import { FunctionDeclaration, Type, ReturnExpression, Expression } from './types';
 
 const ast: FunctionDeclaration[] = [];
 const blocks: string[] = [];
@@ -18,38 +18,38 @@ const pickType = (type: Type): number => {
   }
 };
 
-const parseReturnStatement = (
-  wasmModule: Module,
-  returnExpression: ReturnExpression,
-): { moduleReturn: number; value?: number } => {
-  if (returnExpression.returnType !== Type.VOID) {
-    if (!returnExpression.body) {
-      throw Error(`Function with type ${returnExpression.returnType} expects a return.`);
+const parseExpression = (wasmModule: Module, expression: Expression): { value: number; rawValue: number } => {
+  switch (expression.type) {
+    case 'numberLiteral': {
+      const value = wasmModule.i32.const(expression.body);
+      return { value, rawValue: expression.body };
     }
-    const { type, body } = returnExpression.body;
-    switch (type) {
-      case 'numberLiteral': {
-        const value = wasmModule.i32.const(body);
-        return { moduleReturn: wasmModule.return(value), value };
-      }
-      default:
-        return { moduleReturn: wasmModule.return() };
-    }
-  } else {
-    return { moduleReturn: wasmModule.return() };
+    default:
+      return { value: wasmModule.nop(), rawValue: 0 };
   }
 };
 
+const parseReturnStatement = (
+  wasmModule: Module,
+  returnType: Type,
+  returnExpression: ReturnExpression,
+): { moduleReturn: number; value?: number } => {
+  if (returnType !== Type.VOID) {
+    if (!returnExpression.body) {
+      throw Error(`Function with type ${returnType} expects a return.`);
+    }
+
+    const { value } = parseExpression(wasmModule, returnExpression.body);
+    return { moduleReturn: wasmModule.return(value), value };
+  }
+
+  return { moduleReturn: wasmModule.return() };
+};
+
 const parseFunctionDeclaration = (block: FunctionDeclaration, wasmModule: Module): void => {
-  const { moduleReturn, value } = parseReturnStatement(wasmModule, block.returnExpression);
+  const { moduleReturn, value } = parseReturnStatement(wasmModule, block.returnType, block.returnExpression);
   const params = binaryen.createType([]);
-  const func = wasmModule.addFunction(
-    block.name,
-    params,
-    pickType(block.returnExpression.returnType),
-    [],
-    moduleReturn,
-  );
+  const func = wasmModule.addFunction(block.name, params, pickType(block.returnType), [], moduleReturn);
 
   if (value) {
     wasmModule.setDebugLocation(func, value, block.fileIndex, block.returnExpression.lineNumber, 1);
@@ -75,6 +75,7 @@ const parse = (module: Module, fileIndex: number, source: string): void => {
     const functionDeclarationMatch = [...line.matchAll(functionDeclarationMatcher)];
     const returnExpressionMatch = [...line.matchAll(returnExpressionMatcher)];
     const closingBlockMatch = [...line.matchAll(closingBlockMatcher)];
+
     if (functionDeclarationMatch.length) {
       const [, name, returnType] = functionDeclarationMatch[0];
       blocks.push('functionDeclaration');
@@ -82,12 +83,13 @@ const parse = (module: Module, fileIndex: number, source: string): void => {
         type: 'functionDeclaration',
         name,
         fileIndex,
+        returnType: returnType as Type,
         returnExpression: {
-          returnType: returnType as Type,
-          lineNumber: 0,
+          type: 'returnExpression',
+          lineNumber: lineNumber + 1,
           body: {
-            lineNumber: 0,
-            body: 0,
+            lineNumber: -1,
+            body: -1,
             type: '',
           },
         },
@@ -100,7 +102,7 @@ const parse = (module: Module, fileIndex: number, source: string): void => {
         const latestBlock = [...ast].pop();
         if (latestBlock && latestBlock.type === 'functionDeclaration') {
           latestBlock.returnExpression = {
-            returnType: latestBlock.returnExpression.returnType,
+            type: 'returnExpression',
             lineNumber: lineNumber + 1,
             body: { type: 'numberLiteral', body: Number(match[0]), lineNumber: lineNumber + 1 },
           };
