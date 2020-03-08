@@ -1,13 +1,9 @@
 import binaryen, { Module } from 'binaryen';
 import { FunctionDeclaration, Type, Expression, pickType, StatementType, Statement } from './types';
+import tokenize from './tokenizer';
 
-const ast: FunctionDeclaration[] = [];
-const blocks: string[] = [];
-
-const functionDeclarationMatcher = /function (.*)\(\): (.*) {/g;
-const returnExpressionMatcher = /return (.*)/g;
-const numberLiteralMatcher = /^[0-9]+/g;
-const closingBlockMatcher = /}/g;
+export const ast: FunctionDeclaration[] = [];
+export const blocks: string[] = [];
 
 const parseExpression = (wasmModule: Module, expression: Expression): { value: number; rawValue: number } => {
   switch (expression.type) {
@@ -62,46 +58,28 @@ const parseAbstractSyntaxTree = (wasmModule: Module): void => {
   });
 };
 
-const parse = (module: Module, fileIndex: number, source: string): void => {
-  source.split('\n').forEach((line, lineNumber) => {
-    const functionDeclarationMatch = [...line.matchAll(functionDeclarationMatcher)];
-    const returnExpressionMatch = [...line.matchAll(returnExpressionMatcher)];
-    const closingBlockMatch = [...line.matchAll(closingBlockMatcher)];
+const matchers = [
+  { functionDeclarationMatcher: /function (.*)\(\): (.*) {/g },
+  { returnExpressionMatcher: /return (.*)/g },
+  { closingBlockMatcher: /}/g },
+];
 
-    if (functionDeclarationMatch.length) {
-      const [, name, returnType] = functionDeclarationMatch[0];
-      blocks.push(StatementType.FunctionDeclaration);
-      ast.push({
-        type: StatementType.FunctionDeclaration,
-        name,
-        fileIndex,
-        returnType: returnType as Type,
-        lineNumber: lineNumber + 1,
-        body: [],
-      });
-    } else if (returnExpressionMatch.length) {
-      const match = returnExpressionMatch[0][1].match(numberLiteralMatcher);
-      if (match) {
-        const latestBlock = [...ast].pop();
-        if (latestBlock && latestBlock.type === StatementType.FunctionDeclaration) {
-          latestBlock.body.push({
-            type: StatementType.ReturnExpression,
-            lineNumber: lineNumber + 1,
-            body: { type: StatementType.NumberLiteral, body: Number(match[0]), lineNumber: lineNumber + 1 },
-          });
+const parse = (wasmModule: Module, fileIndex: number, source: string): void => {
+  source.split('\n').forEach((line, lineNumber) => {
+    matchers.forEach(matcher => {
+      const [type, regexp] = Object.entries(matcher)[0];
+
+      if (regexp) {
+        const match = [...line.matchAll(regexp)][0];
+        if (match) {
+          tokenize(lineNumber, fileIndex, type, match);
         }
-      }
-    } else if (closingBlockMatch.length) {
-      if (blocks.length) {
-        blocks.pop();
       } else {
-        throw Error('Syntax error in closing block');
+        throw Error('Matcher does not exist.');
       }
-    } else if (!line.match(/^\s*$/g)) {
-      throw Error(`Syntax error at line ${lineNumber + 1}`);
-    }
+    });
   });
-  parseAbstractSyntaxTree(module);
+  parseAbstractSyntaxTree(wasmModule);
 };
 
 export default parse;
