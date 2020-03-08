@@ -12,28 +12,27 @@ export enum Type {
 }
 
 export interface Expression {
-  type: Line.NumberLiteral | Line.Nop;
+  type: StatementType.NumberLiteral | StatementType.Nop;
   lineNumber: number;
   body: number;
 }
 
-export interface ReturnExpression {
-  type: Line.ReturnExpression;
+export interface Statement {
+  type: StatementType.ReturnExpression;
   lineNumber: number;
   body: Expression;
 }
 
 export interface FunctionDeclaration {
-  type: Line.FunctionDeclaration;
-  returnExpression: ReturnExpression;
+  type: StatementType.FunctionDeclaration;
   returnType: Type;
   fileIndex: number;
   name: string;
   lineNumber: number;
-  body: Expression[];
+  body: Statement[];
 }
 
-export enum Line {
+export enum StatementType {
   FunctionDeclaration = 'functionDeclaration',
   ReturnExpression = 'returnExpression',
   NumberLiteral = 'numberLiteral',
