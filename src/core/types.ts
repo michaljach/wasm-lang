@@ -1,3 +1,5 @@
+import binaryen from 'binaryen';
+
 export interface Binary {
   binary: Uint8Array;
   sourceMap: string | null;
@@ -10,19 +12,19 @@ export enum Type {
 }
 
 export interface Expression {
-  type: string;
+  type: Line.NumberLiteral | Line.Nop;
   lineNumber: number;
   body: number;
 }
 
 export interface ReturnExpression {
-  type: 'returnExpression';
+  type: Line.ReturnExpression;
   lineNumber: number;
   body: Expression;
 }
 
 export interface FunctionDeclaration {
-  type: 'functionDeclaration';
+  type: Line.FunctionDeclaration;
   returnExpression: ReturnExpression;
   returnType: Type;
   fileIndex: number;
@@ -30,3 +32,19 @@ export interface FunctionDeclaration {
   lineNumber: number;
   body: Expression[];
 }
+
+export enum Line {
+  FunctionDeclaration = 'functionDeclaration',
+  ReturnExpression = 'returnExpression',
+  NumberLiteral = 'numberLiteral',
+  Nop = '',
+}
+
+export const pickType = (type: Type): number => {
+  switch (type) {
+    case Type.INT:
+      return binaryen.i32;
+    default:
+      return binaryen.none;
+  }
+};

@@ -1,5 +1,5 @@
 import binaryen, { Module } from 'binaryen';
-import { FunctionDeclaration, Type, ReturnExpression, Expression } from './types';
+import { FunctionDeclaration, Type, ReturnExpression, Expression, pickType, Line } from './types';
 
 const ast: FunctionDeclaration[] = [];
 const blocks: string[] = [];
@@ -9,23 +9,14 @@ const returnExpressionMatcher = /return (.*)/g;
 const numberLiteralMatcher = /^[0-9]+/g;
 const closingBlockMatcher = /}/g;
 
-const pickType = (type: Type): number => {
-  switch (type) {
-    case Type.INT:
-      return binaryen.i32;
-    default:
-      return binaryen.none;
-  }
-};
-
 const parseExpression = (wasmModule: Module, expression: Expression): { value: number; rawValue: number } => {
   switch (expression.type) {
-    case 'numberLiteral': {
+    case Line.NumberLiteral: {
       const value = wasmModule.i32.const(expression.body);
       return { value, rawValue: expression.body };
     }
     default:
-      return { value: wasmModule.nop(), rawValue: 0 };
+      return { value: wasmModule.nop(), rawValue: -1 };
   }
 };
 
@@ -60,7 +51,7 @@ const parseFunctionDeclaration = (block: FunctionDeclaration, wasmModule: Module
 const parseAbstractSyntaxTree = (wasmModule: Module): void => {
   ast.forEach((block: FunctionDeclaration) => {
     switch (block.type) {
-      case 'functionDeclaration':
+      case Line.FunctionDeclaration:
         parseFunctionDeclaration(block, wasmModule);
         break;
 
@@ -78,19 +69,19 @@ const parse = (module: Module, fileIndex: number, source: string): void => {
 
     if (functionDeclarationMatch.length) {
       const [, name, returnType] = functionDeclarationMatch[0];
-      blocks.push('functionDeclaration');
+      blocks.push(Line.FunctionDeclaration);
       ast.push({
-        type: 'functionDeclaration',
+        type: Line.FunctionDeclaration,
         name,
         fileIndex,
         returnType: returnType as Type,
         returnExpression: {
-          type: 'returnExpression',
+          type: Line.ReturnExpression,
           lineNumber: lineNumber + 1,
           body: {
             lineNumber: -1,
             body: -1,
-            type: '',
+            type: Line.Nop,
           },
         },
         lineNumber: lineNumber + 1,
@@ -100,11 +91,11 @@ const parse = (module: Module, fileIndex: number, source: string): void => {
       const match = returnExpressionMatch[0][1].match(numberLiteralMatcher);
       if (match) {
         const latestBlock = [...ast].pop();
-        if (latestBlock && latestBlock.type === 'functionDeclaration') {
+        if (latestBlock && latestBlock.type === Line.FunctionDeclaration) {
           latestBlock.returnExpression = {
-            type: 'returnExpression',
+            type: Line.ReturnExpression,
             lineNumber: lineNumber + 1,
-            body: { type: 'numberLiteral', body: Number(match[0]), lineNumber: lineNumber + 1 },
+            body: { type: Line.NumberLiteral, body: Number(match[0]), lineNumber: lineNumber + 1 },
           };
         }
       }
