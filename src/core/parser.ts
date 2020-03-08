@@ -114,6 +114,8 @@ const parse = (module: Module, fileIndex: number, source: string): void => {
       } else {
         throw Error('Syntax error in closing block');
       }
+    } else if (!line.match(/^\s*$/g)) {
+      throw Error(`Syntax error at line ${lineNumber + 1}`);
     }
   });
   parseAbstractSyntaxTree(module);
