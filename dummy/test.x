@@ -1,4 +1,4 @@
 function main(): int {
-  return 12
+  return 123
 }
 

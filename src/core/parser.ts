@@ -5,10 +5,10 @@ import tokenize from './tokenizer';
 export const ast: FunctionDeclaration[] = [];
 export const blocks: string[] = [];
 
-const parseExpression = (wasmModule: Module, expression: Expression): { value: number; rawValue: number } => {
+const parseExpression = (wasmModule: Module, expression: Expression): { value: number; rawValue: number | string } => {
   switch (expression.type) {
     case StatementType.NumberLiteral: {
-      const value = wasmModule.i32.const(expression.body);
+      const value = wasmModule.i32.const(Number(expression.body));
       return { value, rawValue: expression.body };
     }
     default:
@@ -23,7 +23,7 @@ const parseReturnStatement = (
 ): { moduleReturn: number; value?: number } => {
   if (returnType !== Type.VOID) {
     if (!returnExpression.body) {
-      throw Error(`Function with type ${returnType} expects a return.`);
+      throw Error(`Function with return type ${returnType} expects a proper type return.`);
     }
 
     const { value } = parseExpression(wasmModule, returnExpression.body);
@@ -35,6 +35,9 @@ const parseReturnStatement = (
 
 const parseFunctionDeclaration = (block: FunctionDeclaration, wasmModule: Module): void => {
   const returnStatement = block.body.filter(expression => expression.type === StatementType.ReturnExpression)[0];
+  if (block.returnType !== Type.VOID && !returnStatement) {
+    throw Error(`Function with return type ${block.returnType} expects a proper type return.`);
+  }
   const { moduleReturn, value } = parseReturnStatement(wasmModule, block.returnType, returnStatement);
   const params = binaryen.createType([]);
   const func = wasmModule.addFunction(block.name, params, pickType(block.returnType), [], moduleReturn);
@@ -58,7 +61,7 @@ const parseAbstractSyntaxTree = (wasmModule: Module): void => {
   });
 };
 
-const matchers = [
+const statementMatchers = [
   { functionDeclarationMatcher: /function (.*)\(\): (.*) {/g },
   { returnExpressionMatcher: /return (.*)/g },
   { closingBlockMatcher: /}/g },
@@ -66,7 +69,7 @@ const matchers = [
 
 const parse = (wasmModule: Module, fileIndex: number, source: string): void => {
   source.split('\n').forEach((line, lineNumber) => {
-    matchers.forEach(matcher => {
+    statementMatchers.forEach(matcher => {
       const [type, regexp] = Object.entries(matcher)[0];
 
       if (regexp) {

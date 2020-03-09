@@ -1,6 +1,8 @@
 import { StatementType, Type } from './types';
 import { ast, blocks } from './parser';
 
+const expressionMatchers = [{ numberLiteralMatcher: /^[0-9]+/g }, { stringLiteralMatcher: /'(.*)'/g }];
+
 const tokenize = (lineNumber: number, fileIndex: number, type: string, match: RegExpMatchArray): void => {
   switch (type) {
     case 'functionDeclarationMatcher': {
@@ -17,20 +19,39 @@ const tokenize = (lineNumber: number, fileIndex: number, type: string, match: Re
       break;
     }
     case 'returnExpressionMatcher': {
-      const test = match[1].match(/^[0-9]+/g);
+      expressionMatchers.forEach(matcher => {
+        const [expressionType, regexp] = Object.entries(matcher)[0];
 
-      if (test) {
-        const latestBlock = [...ast].pop();
-        if (latestBlock && latestBlock.type === StatementType.FunctionDeclaration) {
-          latestBlock.body.push({
-            type: StatementType.ReturnExpression,
-            lineNumber: lineNumber + 1,
-            body: { type: StatementType.NumberLiteral, body: Number(test[0]), lineNumber: lineNumber + 1 },
-          });
-        } else {
-          throw Error('Syntax error on return');
+        if (regexp) {
+          const test = match[1].match(regexp);
+
+          if (test) {
+            const latestBlock = [...ast].pop();
+            if (latestBlock && latestBlock.type === StatementType.FunctionDeclaration) {
+              switch (expressionType) {
+                case 'numberLiteralMatcher':
+                  latestBlock.body.push({
+                    type: StatementType.ReturnExpression,
+                    lineNumber: lineNumber + 1,
+                    body: { type: StatementType.NumberLiteral, body: Number(test[0]), lineNumber: lineNumber + 1 },
+                  });
+                  break;
+
+                case 'stringLiteralMatcher':
+                  latestBlock.body.push({
+                    type: StatementType.ReturnExpression,
+                    lineNumber: lineNumber + 1,
+                    body: { type: StatementType.StringLiteral, body: String(test[0]), lineNumber: lineNumber + 1 },
+                  });
+                  break;
+
+                default:
+                  break;
+              }
+            }
+          }
         }
-      }
+      });
       break;
     }
     case 'closingBlockMatcher':

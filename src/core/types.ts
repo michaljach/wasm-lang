@@ -12,9 +12,9 @@ export enum Type {
 }
 
 export interface Expression {
-  type: StatementType.NumberLiteral | StatementType.Nop;
+  type: StatementType.NumberLiteral | StatementType.StringLiteral | StatementType.Nop;
   lineNumber: number;
-  body: number;
+  body: number | string;
 }
 
 export interface Statement {
@@ -36,6 +36,7 @@ export enum StatementType {
   FunctionDeclaration = 'functionDeclaration',
   ReturnExpression = 'returnExpression',
   NumberLiteral = 'numberLiteral',
+  StringLiteral = 'stringLiteral',
   Nop = '',
 }
 
