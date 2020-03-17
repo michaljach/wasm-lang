@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "debug": "node --inspect-brk bin/index.js",
+    "start": "serve dummy & nodemon --watch 'src' --watch 'dummy' -e js,ts,x --exec 'tsc && bin/index.js -s -q'",
     "lint": "eslint src --ext .js,.ts",
     "commit": "git-cz",
     "commitlint": "commitlint --from=HEAD~1"
@@ -35,7 +35,9 @@
     "eslint-plugin-prettier": "^3.1.2",
     "git-cz": "^4.3.1",
     "husky": "^4.2.3",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
+    "serve": "^11.3.0",
     "typescript": "^3.8.0-dev.20191216"
   },
   "husky": {

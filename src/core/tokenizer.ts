@@ -7,6 +7,7 @@ const tokenize = (lineNumber: number, fileIndex: number, type: string, match: Re
   switch (type) {
     case 'functionDeclarationMatcher': {
       const [, name, returnType] = match;
+
       blocks.push(StatementType.FunctionDeclaration);
       ast.push({
         type: StatementType.FunctionDeclaration,

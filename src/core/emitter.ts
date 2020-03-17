@@ -10,7 +10,7 @@ const emit = (argv: Args): Binary => {
   const basenameInput = path.basename(`${argv.f}`);
   const basenameOutput = path.basename(`${argv.o}`);
   const fileIndex = wasmModule.addDebugInfoFileName(basenameInput);
-  const sourceMapFileUrl = argv.s ? `http://localhost:52074/${basenameOutput}.map` : null;
+  const sourceMapFileUrl = argv.s ? `http://localhost:5000/${basenameOutput}.map` : null;
 
   parse(wasmModule, fileIndex, read(`${argv.f}`));
 

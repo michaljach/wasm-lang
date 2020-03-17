@@ -45,6 +45,16 @@ function show(): int {
 }
 ```
 
+### Development
+
+Use start script to start the server, watch changes and auto re-compile sources.
+
+`yarn start`
+
+Example:
+
+`yarn start -f dummy/test.x -o dummy/test.wasm`
+
 ### Changelog
 
 See `CHANGELOG` file for list of recent changes.
