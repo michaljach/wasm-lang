@@ -16,7 +16,7 @@ if (sourceMap) {
   log(MessageCode.SOURCEMAPS_COMPILED);
 }
 
-if (textFormat) {
+if (argv.t) {
   save(`${argv.t}`, textFormat);
 }
 

@@ -1,44 +1,41 @@
-import { FunctionDeclaration, Type, StatementType, Statement, Token } from './types';
+import { Type, StatementType, Token, BlockType, ExpressionType, Node } from './types';
 
 const statementMatchers = [
-  { type: 'functionDeclarationMatcher', regexp: /function (.*)\(\): (.*) {/ },
-  { type: 'returnExpressionMatcher', regexp: /return (.*)/ },
-  { type: 'closingBlockMatcher', regexp: /}/ },
+  { type: BlockType.FunctionDeclaration, regexp: /function (.*)\(\): (.*) {/ },
+  { type: StatementType.ReturnStatement, regexp: /return (.*)/ },
+  { type: BlockType.Closure, regexp: /}/ },
 ];
+
+const expressionMatchers = [{ type: ExpressionType.NumberLiteral, regexp: /^[0-9]+/g }];
 
 export const blocks: string[] = [];
 
-const expressionMatchers = [
-  { type: 'numberLiteralMatcher', regexp: /^[0-9]+/g },
-  { type: 'stringLiteralMatcher', regexp: /'(.*)'/g },
-];
-
-const parseToken = ({ type, match, lineNumber }: Token): FunctionDeclaration | Statement | null => {
+const parseToken = ({ type, match, lineNumber }: Token): Node => {
   switch (type) {
-    case 'functionDeclarationMatcher': {
+    case BlockType.FunctionDeclaration: {
       const [, name, returnType] = match;
 
-      blocks.push(StatementType.FunctionDeclaration);
+      blocks.push(BlockType.FunctionDeclaration);
       return {
-        type: StatementType.FunctionDeclaration,
+        type: BlockType.FunctionDeclaration,
         name,
         returnType: returnType as Type,
         lineNumber: lineNumber + 1,
         body: [],
       };
     }
-    case 'returnExpressionMatcher': {
+    case StatementType.ReturnStatement: {
       const value = expressionMatchers
         .flatMap(matcher => ({ match: match[1].match(matcher.regexp), type: matcher.type }))
         .filter(elem => elem.match)[0];
 
       return {
-        type: StatementType.ReturnExpression,
+        type: StatementType.ReturnStatement,
         lineNumber: lineNumber + 1,
-        body: { type: StatementType.NumberLiteral, body: Number(value.match![0]), lineNumber: lineNumber + 1 },
+        body: { type: ExpressionType.NumberLiteral, body: Number(value.match![0]), lineNumber: lineNumber + 1 },
       };
     }
-    case 'closingBlockMatcher':
+    case BlockType.Closure:
       if (blocks.length) {
         blocks.pop();
         return null;
@@ -50,7 +47,7 @@ const parseToken = ({ type, match, lineNumber }: Token): FunctionDeclaration | S
   }
 };
 
-const tokenize = (source: string): (FunctionDeclaration | Statement | null)[] => {
+const tokenize = (source: string): Node[] => {
   return source
     .split('\n')
     .flatMap((line, lineNumber) =>

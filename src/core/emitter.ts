@@ -2,11 +2,21 @@ import binaryen, { Module } from 'binaryen';
 import path from 'path';
 import log, { MessageCode } from '../utils/logger';
 import { Args } from './io';
-import { Binary, FunctionDeclaration, Statement, StatementType, Expression, Type, pickType } from './types';
+import {
+  Binary,
+  FunctionBlock,
+  StatementType,
+  Expression,
+  Type,
+  pickType,
+  ExpressionType,
+  BlockType,
+  Node,
+} from './types';
 
 const parseExpression = (wasmModule: Module, expression: Expression): { value: number; rawValue: number | string } => {
   switch (expression.type) {
-    case StatementType.NumberLiteral: {
+    case ExpressionType.NumberLiteral: {
       const value = wasmModule.i32.const(Number(expression.body));
       return { value, rawValue: expression.body };
     }
@@ -23,8 +33,8 @@ const parseReturnStatement = (
   return { moduleReturn: wasmModule.return(value), value };
 };
 
-const parseFunctionDeclaration = (block: FunctionDeclaration, wasmModule: Module, fileIndex: number): void => {
-  const returnStatement = block.body.filter(expression => expression.type === StatementType.ReturnExpression)[0];
+const parseFunctionDeclaration = (block: FunctionBlock, wasmModule: Module, fileIndex: number): void => {
+  const returnStatement = block.body.filter(expression => expression.type === StatementType.ReturnStatement)[0];
   if (block.returnType !== Type.VOID && !returnStatement) {
     throw Error(`Function with return type '${block.returnType}' expects return statement.`);
   }
@@ -40,10 +50,10 @@ const parseFunctionDeclaration = (block: FunctionDeclaration, wasmModule: Module
   wasmModule.addFunctionExport(block.name, block.name);
 };
 
-const parseAst = (wasmModule: Module, fileIndex: number, ast: (FunctionDeclaration | Statement | null)[]): void => {
+const parseAst = (wasmModule: Module, fileIndex: number, ast: Node[]): void => {
   ast.forEach(node => {
     switch (node?.type) {
-      case StatementType.FunctionDeclaration:
+      case BlockType.FunctionDeclaration:
         parseFunctionDeclaration(node, wasmModule, fileIndex);
         break;
 
@@ -53,7 +63,7 @@ const parseAst = (wasmModule: Module, fileIndex: number, ast: (FunctionDeclarati
   });
 };
 
-const emit = (ast: any, argv: Args): Binary => {
+const emit = (ast: Node[], argv: Args): Binary => {
   const wasmModule = new binaryen.Module();
   const basenameInput = path.basename(`${argv.f}`);
   const basenameOutput = path.basename(`${argv.o}`);

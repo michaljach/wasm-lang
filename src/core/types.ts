@@ -18,28 +18,41 @@ export interface Token {
 }
 
 export interface Expression {
-  type: StatementType.NumberLiteral | StatementType.StringLiteral | StatementType.Nop;
+  type: ExpressionType;
   lineNumber: number;
   body: number | string;
 }
 
 export interface Statement {
-  type: StatementType.ReturnExpression;
+  type: StatementType;
   lineNumber: number;
   body: Expression;
 }
 
-export interface FunctionDeclaration {
-  type: StatementType.FunctionDeclaration;
-  returnType: Type;
-  name: string;
+export interface Block {
+  type: BlockType;
   lineNumber: number;
   body: Statement[];
 }
 
-export enum StatementType {
+export interface FunctionBlock extends Block {
+  type: BlockType.FunctionDeclaration;
+  returnType: Type;
+  name: string;
+}
+
+export type Node = FunctionBlock | Statement | null;
+
+export enum BlockType {
   FunctionDeclaration = 'functionDeclaration',
-  ReturnExpression = 'returnExpression',
+  Closure = 'closure',
+}
+
+export enum StatementType {
+  ReturnStatement = 'returnStatement',
+}
+
+export enum ExpressionType {
   NumberLiteral = 'numberLiteral',
   StringLiteral = 'stringLiteral',
   Nop = '',
