@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "bin",
     "allowJs": true,
-    "lib": ["es6", "es2015", "dom", "es2020.string"],
+    "lib": ["es6", "es2019", "dom", "es2020.string"],
     "target": "es5",
     "noImplicitAny": true,
     "module": "commonjs",

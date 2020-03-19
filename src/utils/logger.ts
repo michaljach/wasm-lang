@@ -12,7 +12,9 @@ const messages = {
   [MessageCode.COMPILED_SUCCESSFULLY]: chalk.green('🚀 Compiled successfully!'),
 };
 
-export const log = (errorCode: MessageCode): void => {
+const log = (errorCode: MessageCode): void => {
   const statement = messages[errorCode];
   console.log(statement); // eslint-disable-line no-console
 };
+
+export default log;

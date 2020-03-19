@@ -11,6 +11,12 @@ export enum Type {
   INT = 'int',
 }
 
+export interface Token {
+  lineNumber: number;
+  type: string;
+  match: RegExpMatchArray;
+}
+
 export interface Expression {
   type: StatementType.NumberLiteral | StatementType.StringLiteral | StatementType.Nop;
   lineNumber: number;
@@ -26,7 +32,6 @@ export interface Statement {
 export interface FunctionDeclaration {
   type: StatementType.FunctionDeclaration;
   returnType: Type;
-  fileIndex: number;
   name: string;
   lineNumber: number;
   body: Statement[];
