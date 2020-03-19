@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.6 (2020-03-19)
+
+
+### Bug Fixes
+
+* 🐛 releasing action ([d2115a1](https://github.com/michaljach/wasm-lang/commit/d2115a1ccc07709fb47431e81ec38ca9014fe661))
+
 ### [0.9.5](https://github.com/michaljach/wasm-lang/compare/v0.2.0...v0.9.5) (2020-03-19)
 
 
