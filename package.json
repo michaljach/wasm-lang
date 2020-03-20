@@ -1,6 +1,6 @@
 {
   "name": "rapid-lang",
-  "version": "0.9.14",
+  "version": "0.9.15",
   "main": "bin/index.js",
   "bin": {
     "rapid": "./bin/index.js"
