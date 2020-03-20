@@ -29,21 +29,7 @@ Example:
 
 ### Language Documentation
 
-- #### Function declaration
-
-```
-function [name]([param_name]: <type>, ...): <type> {
-  return [expression]
-}
-```
-
-Example:
-
-```
-function show(): int {
-  return 12
-}
-```
+Full documentation is available on https://michaljach.gitbook.io/wasm/ page.
 
 ### Development
 
