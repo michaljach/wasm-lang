@@ -1,6 +1,6 @@
 {
   "name": "wasm-lang",
-  "version": "0.9.11",
+  "version": "0.9.10",
   "main": "bin/index.js",
   "bin": {
     "wasm": "./bin/index.js"
