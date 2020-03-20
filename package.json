@@ -1,9 +1,9 @@
 {
-  "name": "wasm-lang",
+  "name": "compiler",
   "version": "0.9.14",
   "main": "bin/index.js",
   "bin": {
-    "wasm": "./bin/index.js"
+    "rapid": "./bin/index.js"
   },
   "scripts": {
     "build": "tsc",
