@@ -1,4 +1,4 @@
-![Build](https://github.com/rapidlang/compiler/workflows/Build/badge.svg) [![npm version](https://img.shields.io/npm/v/wasm-lang.svg?style=flat)](https://www.npmjs.com/package/wasm-lang) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rapidlang/compiler/blob/master/LICENSE)
+![Build](https://github.com/rapidlang/compiler/workflows/Build/badge.svg) [![npm version](https://img.shields.io/npm/v/rapid-lang.svg?style=flat)](https://www.npmjs.com/package/rapid-lang) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rapidlang/compiler/blob/master/LICENSE)
 
 # RAPID compiler
 
@@ -6,7 +6,7 @@ Compiles `RAPID` sources to [WebAssembly](https://webassembly.org/) `wasm` binar
 
 ### Install
 
-`npm i rapid -g`
+`npm i rapid-lang -g`
 
 ### API
 

@@ -1,5 +1,5 @@
 {
-  "name": "compiler",
+  "name": "rapid-lang",
   "version": "0.9.14",
   "main": "bin/index.js",
   "bin": {
