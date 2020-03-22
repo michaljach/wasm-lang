@@ -6,7 +6,7 @@ import tokenize from './core/tokenizer';
 import parse from './core/parser';
 import emit from './core/emitter';
 
-const source = read(argv.f);
+const source = read(argv._[0]);
 const tokens = tokenize(source);
 const ast = parse(tokens);
 const { sourceMap, textFormat, binary } = emit(ast, argv);

@@ -3,15 +3,23 @@ import yargs from 'yargs';
 
 export interface Args {
   [x: string]: unknown;
-  f: string;
+  _: string[];
 }
 
-export const { argv }: { argv: Args } = yargs.options({
-  f: { type: 'string', demandOption: true, alias: 'file', nargs: 1, description: 'Path to source file to be compiled' },
-  o: { type: 'string', demandOption: true, alias: 'output', nargs: 1, description: 'Path to result file to be saved' },
-  s: { type: 'boolean', alias: 'sourceMaps', description: 'Generate sourceMaps for debugging' },
-  t: { type: 'string', alias: 'textFormat', nargs: 1, description: 'Generate WebAssembly Text Format (wat) file' },
-});
+export const { argv }: { argv: Args } = yargs
+  .options({
+    o: {
+      type: 'string',
+      demandOption: true,
+      alias: 'output',
+      nargs: 1,
+      description: 'Path to result file to be saved',
+    },
+    s: { type: 'boolean', alias: 'sourceMaps', description: 'Generate sourceMaps for debugging' },
+    t: { type: 'string', alias: 'textFormat', nargs: 1, description: 'Generate WebAssembly Text Format (wat) file' },
+  })
+  .demandCommand(1)
+  .command('source', 'Path to source file to be compiled');
 
 export const read = (filename: string): string => {
   return fs.readFileSync(filename).toString();

@@ -11,25 +11,24 @@ Compiles `RAPID` sources to [WebAssembly](https://webassembly.org/) `wasm` binar
 ### API
 
 ```
+Commands:
+  index.js source  Path to source file to be compiled
 
 Options:
-
---help Show help [boolean]
---version Show version number [boolean]
--f, --file Path to source file to be compiled [string] [required]
--o, --output Path to result file to be saved [string] [required]
--s, --sourceMaps Generate sourceMaps for debugging [boolean]
--t, --textFormat  Generate WebAssembly Text Format (wat) file [string]
-
+  --help            Show help                                          [boolean]
+  --version         Show version number                                [boolean]
+  -o, --output      Path to result file to be saved          [string] [required]
+  -s, --sourceMaps  Generate sourceMaps for debugging                  [boolean]
+  -t, --textFormat  Generate WebAssembly Text Format (wat) file         [string]
 ```
 
 Example:
 
-`rapid -f dummy/test.rapid -o dummy/test.wasm -s`
+`rapid dummy/test.rapid -o dummy/test.wasm -s`
 
 ### Language Documentation
 
-Full documentation is available on https://michaljach.gitbook.io/rapid/ page.
+Full documentation is available on http://rapid-lang.org page.
 
 ### Development
 
@@ -39,7 +38,7 @@ Use start script to start the server, watch changes and auto re-compile sources.
 
 Example:
 
-`yarn start -f dummy/test.rapid -o dummy/test.wasm`
+`yarn start dummy/test.rapid -o dummy/test.wasm`
 
 ### Changelog
 
