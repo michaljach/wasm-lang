@@ -12,12 +12,12 @@ Compiles `RAPID` sources to [WebAssembly](https://webassembly.org/) `wasm` binar
 
 ```
 Commands:
-  index.js source  Path to source file to be compiled
+  rapid source  Path to source file to be compiled
 
 Options:
-  --help            Show help                                          [boolean]
-  --version         Show version number                                [boolean]
   -o, --output      Path to result file to be saved          [string] [required]
+  -h, --help        Show help                                          [boolean]
+  -v, --version     Show version number                                [boolean]
   -s, --sourceMaps  Generate sourceMaps for debugging                  [boolean]
   -t, --textFormat  Generate WebAssembly Text Format (wat) file         [string]
 ```
@@ -28,7 +28,7 @@ Example:
 
 ### Language Documentation
 
-Full documentation is available on http://rapid-lang.org page.
+Full documentation is available on https://rapid-lang.org page.
 
 ### Development
 

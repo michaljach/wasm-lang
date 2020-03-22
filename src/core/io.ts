@@ -15,6 +15,8 @@ export const { argv }: { argv: Args } = yargs
       nargs: 1,
       description: 'Path to result file to be saved',
     },
+    h: { alias: 'help' },
+    v: { alias: 'version' },
     s: { type: 'boolean', alias: 'sourceMaps', description: 'Generate sourceMaps for debugging' },
     t: { type: 'string', alias: 'textFormat', nargs: 1, description: 'Generate WebAssembly Text Format (wat) file' },
   })
