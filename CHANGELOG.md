@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.18 (2020-03-31)
+
+
+### Features
+
+* 🎸 cleanup commitlints and security ([a07649c](https://github.com/rapidlang/compiler/commit/a07649c69ce502c4d3fe40d2c502228a773bd79a))
+
 ### 0.9.17 (2020-03-22)
 
 ### 0.9.16 (2020-03-22)
