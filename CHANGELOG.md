@@ -1,9 +1,9 @@
-# 0.2.0 (2020-04-02)
+# 0.1.0 (2020-04-02)
 
 
 ### Features
 
-* 🎸 publish initial scoped package ([fc37184](https://github.com/rapidlang/compiler/commit/fc37184c812d407d2aa8f030db528b5e06eec2ae))
+* 🎸 publish initial version ([496b3d0](https://github.com/rapidlang/compiler/commit/496b3d0b064b7d455213a0b3da4a8868e3a276fc))
 
 
 
