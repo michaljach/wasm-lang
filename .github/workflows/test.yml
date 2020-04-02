@@ -1,0 +1,22 @@
+name: Test, Build
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
+jobs:
+  build:
+    name: Test, Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install
+        run: yarn install
+      - name: Test
+        run: |
+          yarn lint
+      - name: Build
+        run: yarn build

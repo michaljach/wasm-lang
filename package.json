@@ -1,21 +1,22 @@
 {
-  "name": "rapid-lang",
-  "version": "0.9.18",
+  "name": "@rapid-lang/compiler",
+  "version": "0.0.0",
   "main": "bin/index.js",
+  "files": [
+    "bin"
+  ],
   "bin": {
-    "rapid": "./bin/index.js"
+    "rapid-compiler": "./bin/index.js"
   },
   "scripts": {
     "build": "tsc",
     "start": "serve dummy & nodemon --watch 'src' --watch 'dummy' -e js,ts,x --exec 'tsc && bin/index.js -s -q'",
     "lint": "eslint src --ext .js,.ts",
     "commit": "git-cz",
-    "commitlint": "commitlint --from=HEAD~1",
-    "release": "standard-version"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "bump": "conventional-recommended-bump -p angular",
+    "package-version": "echo $npm_package_version"
   },
-  "files": [
-    "bin"
-  ],
   "license": "MIT",
   "dependencies": {
     "binaryen": "^91.0.0",
@@ -36,7 +37,6 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "serve": "^11.3.0",
-    "standard-version": "^7.1.0",
     "typescript": "^3.8.0-dev.20191216"
   }
 }
