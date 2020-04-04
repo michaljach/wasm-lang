@@ -9,7 +9,7 @@ export enum MessageCode {
 const messages = {
   [MessageCode.NOT_VALID]: chalk.red('Error :: Module is not valid'),
   [MessageCode.SOURCEMAPS_COMPILED]: '📍 Source maps generated successfully!',
-  [MessageCode.COMPILED_SUCCESSFULLY]: chalk.green('🚀 Compiled successfully!'),
+  [MessageCode.COMPILED_SUCCESSFULLY]: chalk.green('📦 Compiled successfully!'),
 };
 
 const log = (errorCode: MessageCode): void => {

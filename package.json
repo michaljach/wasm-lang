@@ -9,7 +9,7 @@
     "rapid-compiler": "./bin/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --declaration",
     "start": "serve dummy & nodemon --watch 'src' --watch 'dummy' -e js,ts,x --exec 'tsc && bin/index.js -s -q'",
     "lint": "eslint src --ext .js,.ts",
     "commit": "git-cz",
