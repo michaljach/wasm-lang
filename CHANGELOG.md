@@ -1,9 +1,9 @@
-# 0.1.0 (2020-04-04)
+# 0.2.0 (2020-04-04)
 
 
 ### Features
 
-* 🎸 reset version ([42b7824](https://github.com/rapidlang/compiler/commit/42b782425d35bcae1d5f68223ce35db8c01f030d))
+* 🎸 cleanup scripts ([f30991f](https://github.com/rapidlang/compiler/commit/f30991ff8946c80b33ae1413016d57c9021644d4))
 
 
 
