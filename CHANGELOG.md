@@ -1,9 +1,9 @@
-# 0.1.0 (2020-04-02)
+# 0.2.0 (2020-04-04)
 
 
 ### Features
 
-* 🎸 publish initial version ([496b3d0](https://github.com/rapidlang/compiler/commit/496b3d0b064b7d455213a0b3da4a8868e3a276fc))
+* 🎸 compiler as module ([c206ce3](https://github.com/rapidlang/compiler/commit/c206ce3415af1c524ad87a7ba2ecf53f88e7580a))
 
 
 
