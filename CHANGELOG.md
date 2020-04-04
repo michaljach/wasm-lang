@@ -3,7 +3,7 @@
 
 ### Features
 
-* 🎸 reset version ([e26076f](https://github.com/rapidlang/compiler/commit/e26076f3825075a23ebf8e4b233664f72bee9a39))
+* 🎸 reset version ([42b7824](https://github.com/rapidlang/compiler/commit/42b782425d35bcae1d5f68223ce35db8c01f030d))
 
 
 
