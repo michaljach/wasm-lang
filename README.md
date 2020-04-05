@@ -6,13 +6,13 @@ Compiles `RAPID` sources to [WebAssembly](https://webassembly.org/) `wasm` binar
 
 ### Install
 
-`npm i rapid-lang -g`
+`npm i @rapid-lang/compiler -g`
 
 ### API
 
 ```
 Commands:
-  rapid source  Path to source file to be compiled
+  rapid-compiler source  Path to source file to be compiled
 
 Options:
   -o, --output      Path to result file to be saved          [string] [required]
@@ -20,11 +20,12 @@ Options:
   -v, --version     Show version number                                [boolean]
   -s, --sourceMaps  Generate sourceMaps for debugging                  [boolean]
   -t, --textFormat  Generate WebAssembly Text Format (wat) file         [string]
+  -p, --port        Sourcemaps default port                             [number]
 ```
 
 Example:
 
-`rapid dummy/test.rapid -o dummy/test.wasm -s`
+`rapid-compiler dummy/test.rapid -o dummy/test.wasm -s`
 
 ### Language Documentation
 
@@ -32,13 +33,7 @@ Full documentation is available on https://rapid-lang.org page.
 
 ### Development
 
-Use start script to start the server, watch changes and auto re-compile sources.
-
-`yarn start`
-
-Example:
-
-`yarn start dummy/test.rapid -o dummy/test.wasm`
+Follow [Github Flow](https://guides.github.com/introduction/flow/) and [Conventional Commits](https://www.conventionalcommits.org/) via `yarn commit` command. Do linting with `yarn lint` and build project with `yarn build`.
 
 ### Changelog
 

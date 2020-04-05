@@ -14,6 +14,7 @@ const compile = (args: Args = getArgs()): void => {
 
   if (sourceMap) {
     save(`${args.o}.map`, sourceMap);
+    save(`${args._[0]}`, source);
     log(MessageCode.SOURCEMAPS_COMPILED);
   }
 
