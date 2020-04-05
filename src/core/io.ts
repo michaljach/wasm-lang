@@ -20,6 +20,7 @@ export const getArgs = (): Args => {
       v: { alias: 'version' },
       s: { type: 'boolean', alias: 'sourceMaps', description: 'Generate sourceMaps for debugging' },
       t: { type: 'string', alias: 'textFormat', nargs: 1, description: 'Generate WebAssembly Text Format (wat) file' },
+      p: { type: 'number', alias: 'port', nargs: 1, description: 'Sourcemaps default port' },
     })
     .demandCommand(1)
     .command('source', 'Path to source file to be compiled');

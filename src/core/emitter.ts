@@ -64,11 +64,12 @@ const parseAst = (wasmModule: Module, fileIndex: number, ast: Node[]): void => {
 };
 
 const emit = (ast: Node[], argv: Args): Binary => {
+  const sourcemapsPort = argv.p || 2000;
   const wasmModule = new binaryen.Module();
   const basenameInput = path.basename(`${argv._[0]}`);
   const basenameOutput = path.basename(`${argv.o}`);
   const fileIndex = wasmModule.addDebugInfoFileName(basenameInput);
-  const sourceMapFileUrl = argv.s ? `http://localhost:5000/${basenameOutput}.map` : null;
+  const sourceMapFileUrl = argv.s ? `http://localhost:${sourcemapsPort}/${basenameOutput}.map` : null;
 
   parseAst(wasmModule, fileIndex, ast);
 
