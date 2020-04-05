@@ -1,6 +1,6 @@
 {
   "name": "@rapid-lang/compiler",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "bin/index.js",
   "files": [
     "bin"
