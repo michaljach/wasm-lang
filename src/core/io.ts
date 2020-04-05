@@ -5,6 +5,8 @@ export interface Args {
   _: string[];
   o: string;
   t: string;
+  p: number;
+  s: boolean;
 }
 
 export const getArgs = (): Args => {
