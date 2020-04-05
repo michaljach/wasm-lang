@@ -1,9 +1,9 @@
-# 0.2.0 (2020-04-04)
+# 0.3.0 (2020-04-05)
 
 
 ### Features
 
-* 🎸 cleanup scripts ([f30991f](https://github.com/rapidlang/compiler/commit/f30991ff8946c80b33ae1413016d57c9021644d4))
+* 🎸 sourcemaps default port option ([0e543d0](https://github.com/rapidlang/compiler/commit/0e543d0a0270c8b0818a343cc42ac5c3519fcb32))
 
 
 
