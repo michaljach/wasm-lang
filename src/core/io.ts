@@ -2,8 +2,9 @@ import fs from 'fs';
 import yargs from 'yargs';
 
 export interface Args {
-  [x: string]: unknown;
   _: string[];
+  o: string;
+  t: string;
 }
 
 export const getArgs = (): Args => {

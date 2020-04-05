@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import path from 'path';
 import { getArgs, read, save, Args } from './core/io';
 import log, { MessageCode } from './utils/logger';
 import tokenize from './core/tokenizer';
@@ -14,15 +15,15 @@ const compile = (args: Args = getArgs()): void => {
 
   if (sourceMap) {
     save(`${args.o}.map`, sourceMap);
-    save(`${args._[0]}`, source);
+    save(`${path.dirname(args.o)}/${path.basename(args._[0])}`, source);
     log(MessageCode.SOURCEMAPS_COMPILED);
   }
 
   if (args.t) {
-    save(`${args.t}`, textFormat);
+    save(args.t, textFormat);
   }
 
-  save(`${args.o}`, binary);
+  save(args.o, binary);
   log(MessageCode.COMPILED_SUCCESSFULLY);
 };
 
