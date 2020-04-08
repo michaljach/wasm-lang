@@ -33,6 +33,10 @@ Full documentation is available on https://rapid-lang.org page.
 
 ### Development
 
+Run `yarn debug` with parameters to watch, compile and debug files, for example:
+
+`yarn debug dummy/test.rapid -o dummy/test.wasm -s`
+
 Follow [Github Flow](https://guides.github.com/introduction/flow/) and [Conventional Commits](https://www.conventionalcommits.org/) via `yarn commit` command. Do linting with `yarn lint` and build project with `yarn build`.
 
 ### Changelog

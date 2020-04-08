@@ -14,7 +14,9 @@
     "commit": "git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "bump": "conventional-recommended-bump -p angular",
-    "package-version": "echo $npm_package_version"
+    "package-version": "echo $npm_package_version",
+    "compile": "tsc && node --inspect-brk bin/index.js",
+    "debug": "nodemon -e ts --exec 'yarn compile'"
   },
   "license": "MIT",
   "dependencies": {
@@ -35,6 +37,7 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
     "git-cz": "^4.3.1",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "typescript": "^3.8.0-dev.20191216"
   }
